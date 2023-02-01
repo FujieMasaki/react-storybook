@@ -1,7 +1,6 @@
+import "./button.css";
+function Button({ children, color = "default", size = "base" }) {
+  return <button className={`${color} ${size}`}>{children}</button>;
+}
 
-function Button({ children }) {
-    return <button>{children}</button>;
-  }
-  
-  export default Button;
-  
+export default Button;
