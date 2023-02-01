@@ -4,16 +4,35 @@ export default {
   title: "Common/Button",
   component: Button,
 };
-export const HelloButton = () => <Button>Default</Button>;
-export const ClickButton = () => <Button color="primary">Primary!</Button>;
-export const Danger = () => <Button color="danger">Danger</Button>;
-export const PrimarySmall = () => (
-  <Button color="primary" size="sm">
-    PrimarySmall
-  </Button>
-);
-export const PrimaryLarge = () => (
-  <Button color="primary" size="lg">
-    PrimaryLarge
-  </Button>
-);
+
+const Template = (args) => <Button {...args} />;
+export const Default = Template.bind({});
+Default.args = {
+  children: "Default",
+};
+
+export const Primary = Template.bind({});
+Primary.args = {
+  children: "Primary",
+  color: "primary",
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  children: "Danger",
+  color: "danger",
+};
+
+export const PrimarySmall = Template.bind({});
+PrimarySmall.args = {
+  ...Primary.args,
+  children: "PrimarySmall",
+  size: "sm",
+};
+
+export const PrimaryLarge = Template.bind({});
+PrimaryLarge.args = {
+  ...Primary.args,
+  children: "PrimaryLarge",
+  size: "lg",
+};
