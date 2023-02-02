@@ -1,10 +1,27 @@
 import Button from "./Button";
 import { action } from "@storybook/addon-actions";
 import { linkTo } from "@storybook/addon-links";
+import { within } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
+import { expect } from "@storybook/jest";
 
 export default {
   title: "Common/Button",
   component: Button,
+  parameters: {
+    backgrounds: {
+      values: [
+        { name: "white", value: "#fff" },
+        { name: "ibory", value: "#fffff0" },
+      ],
+    },
+    layout: "centered",
+    docs: {
+      description: {
+        component: "説明用のボタンコンポーネント",
+      },
+    },
+  },
   argTypes: {
     color: {
       options: ["primary", "default", "danger"],
@@ -55,4 +72,9 @@ PrimaryLarge.args = {
   ...Primary.args,
   children: "PrimaryLarge",
   size: "lg",
+};
+
+PrimaryLarge.play = async ({ args, canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("button"));
 };
