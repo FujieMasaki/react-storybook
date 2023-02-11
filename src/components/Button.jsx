@@ -24,15 +24,15 @@ function Button({
   );
 }
 
-Button.propTypes = {
-  /**
-   * What background color to use
-   */
-  color: PropTypes.oneOf(["primary", "default", "danger"]),
-  /**
-   * How large should the button be?
-   */
-  size: PropTypes.oneOf(["sm", "base", "lg"]),
-};
+// Button.propTypes = {
+//   /**
+//    * What background color to use
+//    */
+//   color: PropTypes.oneOf(["primary", "default", "der"]),
+//   /**
+//    * How large should the button be?
+//    */
+//   size: PropTypes.oneOf(["sm", "base", "lg"]),
+// };
 
 export default Button;

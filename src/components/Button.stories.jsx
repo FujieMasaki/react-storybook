@@ -15,7 +15,6 @@ export default {
         { name: "ibory", value: "#fffff0" },
       ],
     },
-    layout: "centered",
     docs: {
       description: {
         component: "説明用のボタンコンポーネント",
@@ -74,6 +73,7 @@ PrimaryLarge.args = {
   size: "lg",
 };
 
+// interaction関数
 PrimaryLarge.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByRole("button"));
