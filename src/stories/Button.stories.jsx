@@ -1,40 +1,64 @@
-import React from 'react';
+import React from "react";
+import { Button } from "./Button";
 
-import { Button } from './Button';
+import { within, userEvent } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Button',
+  title: "Example/Button",
   component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    handleClick: {
+      action: true,
+    },
+    color: {
+      options: ["primary", "default", "danger"],
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["sm", "base", "lg"],
+      control: { type: "select" },
+    },
   },
 };
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template = (args) => <Button {...args} />;
-
+export const Default = Template.bind({});
+Default.args = {
+  children: "Default",
+  label: "Default",
+  color: "primary",
+  size: "medium",
+};
 export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   primary: true,
-  label: 'Button',
+  label: "Button",
+  color: "primary",
+  size: "medium",
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'Button',
+  label: "Button",
+  size: "small",
 };
 
 export const Large = Template.bind({});
 Large.args = {
-  size: 'large',
-  label: 'Button',
+  size: "large",
+  label: "Button",
 };
 
 export const Small = Template.bind({});
 Small.args = {
-  size: 'small',
-  label: 'Button',
+  size: "small",
+  label: "Button",
+};
+
+Primary.play = async ({ args, canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("button"));
+
+  await expect(args.handleClick).toHaveBeenCalled();
 };
