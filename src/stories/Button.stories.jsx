@@ -1,14 +1,16 @@
 import React from "react";
 import { Button } from "./Button";
-import { linkTo } from "@storybook/addon-links";
 
-import { within } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
+import { within, userEvent } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 export default {
   title: "Example/Button",
   component: Button,
   argTypes: {
+    handleClick: {
+      action: true,
+    },
     color: {
       options: ["primary", "default", "danger"],
       control: { type: "radio" },
@@ -17,24 +19,29 @@ export default {
       options: ["sm", "base", "lg"],
       control: { type: "select" },
     },
-    handleClick: { action: true },
   },
 };
 
-const Template = (args) => (
-  <Button {...args} handleClick={linkTo("Example/Button", "Secondary")} />
-);
-
+const Template = (args) => <Button {...args} />;
+export const Default = Template.bind({});
+Default.args = {
+  children: "Default",
+  label: "Default",
+  color: "primary",
+  size: "medium",
+};
 export const Primary = Template.bind({});
 Primary.args = {
   primary: true,
   label: "Button",
   color: "primary",
+  size: "medium",
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: "Button",
+  size: "small",
 };
 
 export const Large = Template.bind({});
@@ -49,7 +56,9 @@ Small.args = {
   label: "Button",
 };
 
-Primary.play = async ({ canvasElement }) => {
+Primary.play = async ({ args, canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByRole("button"));
+
+  await expect(args.handleClick).toHaveBeenCalled();
 };

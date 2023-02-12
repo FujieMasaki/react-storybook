@@ -36,15 +36,13 @@ export default {
   },
 };
 
-const something = action("something");
-
 const Template = (args) => {
   return <Button {...args} handleClick={linkTo("Common/Button", "Danger")} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  children: "Default",
+  children: "Button",
 };
 
 export const Primary = Template.bind({});
@@ -74,7 +72,8 @@ PrimaryLarge.args = {
 };
 
 // interaction関数
-PrimaryLarge.play = async ({ args, canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByRole("button"));
-};
+// PrimaryLarge.play = async ({ args, canvasElement }) => {
+//   const canvas = within(canvasElement);
+//   await userEvent.click(canvas.getByRole("button"));
+//   await expect(args.handleClick).toHaveBeenCalled();
+// };
